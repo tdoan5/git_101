@@ -1,24 +1,11 @@
-from flask import Flask
+from flask import Flask, url_for
 # unique name for Flask class instance
 app = Flask(__name__)
 
 # decorator
-@app.route('/')
-def index():
-    return "Index Page"
-
-@app.route('/user/<username>')
-def show_user_profile(username):
-    # show the user profile for that user
-    return "User %s" % username 
-
-@app.route('/hello')
-def hello_world():
-    return "Hello World!"
-
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    return "Post %d" % post_id
+@app.route('/login', methods = ['GET'])
+def login():
+    return '<form methods="get" action="/login"><input type="text" name="username" /><p><button type="submit">Submit</button></form>'
 
 # create a server to wait for URL to enter, then follow 
 # decorator routes to run functions
