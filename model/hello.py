@@ -21,7 +21,7 @@ def show_post(post_id):
     return "Post %d" % post_id
 
 # create a server to wait for URL to enter, then follow 
-# decorator route to run functions hello world
+# decorator routes to run functions
 if __name__ == '__main__':
     app.debug = True
     app.run()
