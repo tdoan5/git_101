@@ -7,9 +7,20 @@ app = Flask(__name__)
 # decorator
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == 'POST':
-        return "User %s logged in" % request.form['username']
-    return render_template('login.html')
+        if valid_login(request.form['username'], request.form['password']):
+            return "Welcome back, %s" % request.form['username']
+        else:
+            error = "Incorrect username and password"
+
+    return render_template('login.html', error=error)
+
+def valid_login(username, password):
+    if username == password:
+        return True
+    else:
+        return False
 
 # create a server to wait for URL to enter, then follow 
 # decorator routes to run functions
