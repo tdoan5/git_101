@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 # unique name for Flask class instance
 app = Flask(__name__)
 
@@ -10,7 +10,7 @@ def login():
     error = None
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
-            return "Welcome back, %s" % request.form['username']
+            return redirect(url_for('welcome', username=request.form.get('username'))) 
         else:
             error = "Incorrect username and password"
 
@@ -21,6 +21,10 @@ def valid_login(username, password):
         return True
     else:
         return False
+
+@app.route('/welcome/<username>')
+def welcome(username):
+    return render_template('welcome.html', username=username)
 
 # create a server to wait for URL to enter, then follow 
 # decorator routes to run functions
